@@ -22,7 +22,7 @@ import { DropZoneText } from './constants/texts';
           <i class="fa fa-upload"></i>
         </span>
         <span class="file-label">
-        {{ texts.action.or }} <strong>{{ texts.action.click }}</strong>{{ texts.action.choose }}…
+        {{ texts.action.or }} <strong> {{ texts.action.click }} </strong> {{ texts.action.choose }}
         </span>
       </span>
     </label>
