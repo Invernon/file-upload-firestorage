@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/Invernon/file-upload-firestorage.git"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
- 

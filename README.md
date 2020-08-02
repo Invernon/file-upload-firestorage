@@ -1,7 +1,7 @@
 # FileUploadFirestorage
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
-This Module will help you to make a file uploader for your Angular project with firebase/firestore.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.
+This Module will help you to make a file uploader for your Angular project with firebase/firestorage.
 Now I made a little mix with the library of [ngx-image-cropper](https://www.npmjs.com/package/ngx-image-cropper) to allow edit the images before upload them. 
 
 ## Installation
@@ -15,6 +15,13 @@ You will need to instal the ngx-image-cropper additionaly.
 
 ```bash
 npm install ngx-image-cropper@latest --save
+```
+
+
+## NOTE
+If you just need to use a file drop zone with no other extra function, you could install the V 0.2.0. 
+```bash
+npm install file-upload-firestorage@0.2.0 --save
 ```
 
 ## Usage
