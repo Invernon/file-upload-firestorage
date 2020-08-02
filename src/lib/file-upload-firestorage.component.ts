@@ -13,7 +13,7 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
   <span *ngIf="error.size"> {{ texts.errors.size }} </span>
 </div>
 
-<div class="dropzone-wrapper" >
+<div class="dropzone-wrapper" id="dropzone-wrapper" >
 
   <div class="dropzone" dropZone (hovered)="toggleHover($event)" (dropped)="loadTempFile($event)"
       [class.hovering]="isHovering" *ngIf="!tempFile && !imageUrl" >
@@ -69,23 +69,23 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
   <div class="dropzone-button-wrapper" *ngIf="tempFile || imageUrl " >
 
     <div *ngIf="(ImageType && cropper) || imageUrl" >
-      <button class="loader-button half-button" (click)="rotateLeft()">{{ texts.action.rotateLeft }}</button>
-      <button class="loader-button half-button" (click)="rotateRight()">{{ texts.action.rotateRight }}</button>
+      <button type="button" class="loader-button half-button" (click)="rotateLeft()">{{ texts.action.rotateLeft }}</button>
+      <button type="button" class="loader-button half-button" (click)="rotateRight()">{{ texts.action.rotateRight }}</button>
       <hr>
-      <button class="loader-button half-button" (click)="flipHorizontal()">{{ texts.action.flipHorizontal }}</button>
-      <button class="loader-button half-button" (click)="flipVertical()"> {{ texts.action.flipVertical }}</button>
-      <hr>
-      
-      <button class="loader-button half-button" (click)="zoomOut()">{{ texts.action.zoomOut }}</button> 
-      <button class="loader-button half-button" (click)="zoomIn()">{{ texts.action.zoomIn }}</button>
+      <button type="button" class="loader-button half-button" (click)="flipHorizontal()">{{ texts.action.flipHorizontal }}</button>
+      <button type="button" class="loader-button half-button" (click)="flipVertical()"> {{ texts.action.flipVertical }}</button>
       <hr>
       
-      <button class="loader-button half-button" (click)="resetImage()">{{ texts.action.reset }}</button>
+      <button type="button" class="loader-button half-button" (click)="zoomOut()">{{ texts.action.zoomOut }}</button> 
+      <button type="button" class="loader-button half-button" (click)="zoomIn()">{{ texts.action.zoomIn }}</button>
+      <hr>
+      
+      <button type="button" class="loader-button half-button" (click)="resetImage()">{{ texts.action.reset }}</button>
       <hr>
     </div>
 
-    <button class="loader-button button--success"  (click)="startUpload()" > {{ texts.button.upload }} </button>
-    <button class="loader-button button--warning"  (click)="changeImage()" > {{ texts.button.change }} </button>
+    <button type="button" class="loader-button button--success"  (click)="startUpload()" > {{ texts.button.upload }} </button>
+    <button type="button" class="loader-button button--warning"  (click)="changeImage()" > {{ texts.button.change }} </button>
     
     <div>
 
@@ -97,9 +97,9 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
     
     <div *ngIf="(snapshot | async) as snap">
       {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
-      <button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">{{ texts.button.pause }}</button>
-      <button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">{{ texts.button.cancel }}</button>
-      <button (click)="task.resume()" class="button is-info" [disabled]="!(snap?.state === 'paused')">{{ texts.button.resume }}</button>
+      <button type="button" (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">{{ texts.button.pause }}</button>
+      <button type="button" (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">{{ texts.button.cancel }}</button>
+      <button type="button" (click)="task.resume()" class="button is-info" [disabled]="!(snap?.state === 'paused')">{{ texts.button.resume }}</button>
     </div>
     
     </div>
@@ -176,10 +176,10 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
 
     .loader-button{
       width: 100%;
-      padding: 0.5rem .3rem;
+      padding: 0.5rem 0.4rem;
       margin-bottom: 8px;
       border: none;
-      font-size: 1rem;
+      font-size: 12px;
       font-family: sans-serif;
       border-radius: .5rem;
       cursor: pointer;
@@ -221,9 +221,15 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
         box-shadow: none;
       }
     }
+    
+    .dropzone-wrapper.responsive .dropzone-button-wrapper{
+        flex: 1 0 100%;
+        box-shadow: none;
+      }
   `]
 })
 export class FileUploadFirestorageComponent implements OnInit {
+
   @ViewChild( ImageCropperComponent ) imageCropper: ImageCropperComponent;
   @Output() res = new EventEmitter();
   @Input() lang: 'es' | 'en' = 'en';
@@ -390,6 +396,9 @@ export class FileUploadFirestorageComponent implements OnInit {
 
   ngOnInit() {
     this.texts = new DropZoneText(this.lang);
+    if( document.getElementById('dropzone-wrapper').clientWidth < 767 ){
+      document.getElementById('dropzone-wrapper').classList.add('responsive');
+    } 
   }
 
   // CropImageFunctions 

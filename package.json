@@ -1,6 +1,6 @@
 {
   "name": "file-upload-firestorage",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "peerDependencies": {
     "ngx-image-cropper": "^3.2.1"
   },
