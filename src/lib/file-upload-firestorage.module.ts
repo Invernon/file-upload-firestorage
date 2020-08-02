@@ -4,7 +4,7 @@ import { FileSizePipe } from '../public-api';
 import { CommonModule } from '@angular/common';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { DropZoneDirective } from './dropzone/dropzone.directive';
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { DropZoneDirective } from './dropzone/dropzone.directive';
   ],
   imports: [
     AngularFireStorageModule,
-    CommonModule
+    CommonModule,
+    ImageCropperModule
   ],
   exports: [
     FileSizePipe,

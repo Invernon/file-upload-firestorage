@@ -2,6 +2,7 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 This Module will help you to make a file uploader for your Angular project with firebase/firestore.
+Now I made a little mix with the library of [ngx-image-cropper](https://www.npmjs.com/package/ngx-image-cropper) to allow edit the images before upload them. 
 
 ## Installation
 Use the package manager Npm to install this package.
@@ -20,18 +21,56 @@ import { FileUploadFirestorageModule } from 'file-upload-firestorage';
 Then, just use it in your html template using the <lib-file-upload-firestorage> tag
 
 ```html
-<lib-file-upload-firestorage />
+<lib-file-upload-firestorage 
+    [storagePath] = "'images'"
+    (res)="output($event)"
+    [maxSize]="2"
+    onlyTipe='image'
+    [cropper]="false"
+    lang='es'
+    />
 ```
 
-You must define (1) input and output elements to make the module work great.
-- (res) - This will give to you the response with the data of the uploaded file.
-- storagePath - You have to define the name of the folder where you want to upload your file.
+By default it will allow the user to upload image or any document files with no size restriction.
+I decided to make this as much customizable as I could.
 
-By default it will allow the user to upload image or pdf files with no size restriction
+## API
+The only required input is the storagePath
 
-Optional:
-- maxSize - If you need to stabish a max file size. 
-- onlyType - If you want to avoid some file types. YOU must use , separator or black spaces.
+### Inputs
+
+| Name          | Type                 | Default | Description                                                                    |
+|---------------|----------------------|---------|--------------------------------------------------------------------------------|
+| storagePath   | string               |         | This is the firestorage path to save the image                                 |
+| maxSize       | number               |         | Define the max size of the file. Write it in Mb. Ex. 2                         |
+| onlyType      | string               |         | You can restrict the file type separating them with a coma (,) Ex. image, pdf. |
+| cropper       | boolean              | false   | Activate this option if you want enable the cropper tool.                      |
+| cropperConfig | cropperConfiguration |         | See the next table with all availables options.                                |
+| lang          | string               | en      | Change the language.                                                           |                                                                            |
+
+For the cropperConfiguration object.
+We use just some options of the original library of [ngx-image-cropper](https://www.npmjs.com/package/ngx-image-cropper). If you have some troubles with this options check their repository.
+
+| Name                     | Type    | Default    | Description                                                                                 |
+|--------------------------|---------|------------|---------------------------------------------------------------------------------------------|
+| aspectRatio              | number  | 1/1        | The width / height ratio (e.g. 1/1 is square image , 4/3 ...)                               |
+| maintainAspectRatio      | boolean | true       | Keep width and height of cropped image equal according to the aspectRatio                   |
+| containWithinAspectRatio | boolean | false      | When set to true, padding will be added around the image to make it fit to the aspect ratio |
+| cropperMinHeight         | number  | 0(Disable) |                                                                                             |
+| cropperMinWidth          | number  | 0(Disable) |                                                                                             |
+| resizeToHeight           | number  | 0(Disable) |                                                                                             |
+| resizeToWidth            | number  | 0(Disable) |                                                                                             |
+| cropperStaticWidth       | number  | 0(Disable) |                                                                                             |
+| cropperStaticWidth       | number  | 0(Disable) |                                                                                             |
+
+
+### Output(s)
+
+| Name | Type  | Default | Description                                                                  |
+|------|-------|---------|------------------------------------------------------------------------------|
+| res  | event |         | This will return the locationPath and the thumbnail (Url) from firestorage.  |
+
+You will obtain an object like this: event: { locationPath: string, thumbnail: string };
 
 ```html
 <lib-file-upload-firestorage storagePath="downloadables" (res)="uploadFileRes($event)"/>
