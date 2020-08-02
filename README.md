@@ -25,7 +25,7 @@ Then, just use it in your html template using the <lib-file-upload-firestorage> 
     [storagePath] = "'images'"
     (res)="output($event)"
     [maxSize]="2"
-    onlyTipe='image'
+    [onlyType]='"image"'
     [cropper]="false"
     lang='es'
     />
@@ -71,10 +71,6 @@ We use just some options of the original library of [ngx-image-cropper](https://
 | res  | event |         | This will return the locationPath and the thumbnail (Url) from firestorage.  |
 
 You will obtain an object like this: event: { locationPath: string, thumbnail: string };
-
-```html
-<lib-file-upload-firestorage storagePath="downloadables" (res)="uploadFileRes($event)"/>
-```
 
 ## Suggestions
 I will try to improve this library to make our lives easier in the future. Any suggestion can be made through my email or as a pull request to the repo.
