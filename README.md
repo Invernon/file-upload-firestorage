@@ -8,7 +8,13 @@ Now I made a little mix with the library of [ngx-image-cropper](https://www.npmj
 Use the package manager Npm to install this package.
 
 ```bash
-npm install file-upload-firestorage
+npm install file-upload-firestorage@latest --save
+```
+
+You will need to instal the ngx-image-cropper additionaly.
+
+```bash
+npm install ngx-image-cropper@latest --save
 ```
 
 ## Usage
