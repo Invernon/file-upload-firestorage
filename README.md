@@ -17,6 +17,12 @@ You will need to instal the ngx-image-cropper additionaly.
 npm install ngx-image-cropper@latest --save
 ```
 
+And add AngularFire to your proyect in case you haven't
+
+```bash
+ng add @angular/fire
+```
+
 
 ## NOTE
 If you just need to use a file drop zone with no other extra function, you could install the V 0.2.0. 

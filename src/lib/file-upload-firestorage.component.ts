@@ -224,7 +224,7 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
   `]
 })
 export class FileUploadFirestorageComponent implements OnInit {
-  @ViewChild( ImageCropperComponent , undefined ) imageCropper: ImageCropperComponent;
+  @ViewChild( ImageCropperComponent ) imageCropper: ImageCropperComponent;
   @Output() res = new EventEmitter();
   @Input() lang: 'es' | 'en' = 'en';
   @Input() storagePath: string;

@@ -1,18 +1,11 @@
 {
   "name": "file-upload-firestorage",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "peerDependencies": {
-    "@angular/common": "^8.0.3",
-    "@angular/core": "^8.0.3",
-    "@angular/fire": "^5.2.1",
-    "firebase": "^6.3.3",
     "ngx-image-cropper": "^3.2.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Invernon/file-upload-firestorage.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+  "repository": "https://github.com/Invernon/file-upload-firestorage.git",
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }
