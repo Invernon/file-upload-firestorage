@@ -23,13 +23,13 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
 
     <div class="file">
       <label class="file-label">
-        <input class="file-input" type="file" (change)="loadTempFile($event)">
+        <input class="file-input" id="file-input" type="file" (change)="loadTempFile($event)">
         <span class="file-cta">
           <span class="file-icon">
             <i class="fa fa-upload"></i>
           </span>
           <span class="file-label">
-          {{ texts.action.or }} <strong> {{ texts.action.click }} </strong> {{ texts.action.choose }}
+          {{ texts.action.or }} <strong class="click-here"> {{ texts.action.click }} </strong> {{ texts.action.choose }}
           </span>
         </span>
       </label>
@@ -40,7 +40,7 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
       {{ tempFile.target.files[0].name }}
   </div>
 
-  <div *ngIf="(tempFile && ImageType) || imageUrl" class="preview-image" >
+  <div *ngIf="(tempFile && ImageType) || imageUrl" class="preview-image" [ngClass]="{'disabled': !cropper }">
     <image-cropper
         [imageChangedEvent]="tempFile"
         [imageURL]="imageUrl"
@@ -84,8 +84,8 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
       <hr>
     </div>
 
-    <button type="button" class="loader-button button--success"  (click)="startUpload()" > {{ texts.button.upload }} </button>
     <button type="button" class="loader-button button--warning"  (click)="changeImage()" > {{ texts.button.change }} </button>
+    <button type="button" class="loader-button button--success"  (click)="startUpload()" > {{ texts.button.upload }} </button>
     
     <div>
 
@@ -120,14 +120,16 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
     }
 
     image-cropper {
-      height: 50vh;
-      min-height: 200px;
+      min-height: 100px;
     }
 
     .dropzone-wrapper{
       display:flex;
       flex-wrap: wrap;
+    }
 
+    strong.click-here{
+      cursor:pointer;
     }
 
     .preview-image{
@@ -142,6 +144,12 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
       box-sizing: border-box;
       padding: .5rem 1rem;
       box-shadow: inset 2px 0px 0px #80808047;
+      flex-wrap: wrap;
+      display: flex;
+    }
+
+    .file-label{
+      pointer-events: none;
     }
 
     .dropzone {
@@ -156,7 +164,7 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
       border-radius: 5px;
       background: white;
       margin: 0;
-      cursor:pointer;
+      cursor: pointer;
       padding: .5rem;
       font-family: 'sans-serif';
     }
@@ -175,7 +183,7 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
     }
 
     .loader-button{
-      width: 100%;
+      flex: 1 0 150px;
       padding: 0.5rem 0.4rem;
       margin-bottom: 8px;
       border: none;
@@ -201,11 +209,14 @@ import { Dimensions, ImageCroppedEvent, ImageTransform, ImageCropperComponent, b
     .loader-button.button--success{
       background: #4145c7;
       color: #ffffff;
+      flex: 1 0 60%;
     }
     
     .loader-button.button--warning{
-      background: #ea7826;
-      color: #ffffff;
+      background: #ea782600;
+      color: #ea7826;
+      flex: 1 0 auto;
+      min-width: 100px;
     }
 
     .error{
@@ -324,7 +335,7 @@ export class FileUploadFirestorageComponent implements OnInit {
       }
     }
 
-    if (this.maxSize && (file.size / 100000) >= this.maxSize) {
+    if (this.maxSize && (file.size / (1024 * 1024) ) >= this.maxSize) {
       this.error.size = true;
       console.error('unsupported size file. Its too heavy ', file.size);
       return;
@@ -358,9 +369,8 @@ export class FileUploadFirestorageComponent implements OnInit {
   // startUpload(event: FileList) {
   startUpload(event?: FileList) {
     let file: any;
-
     if( !this.cropper && this.tempFile ){
-      file = this.tempFile.target ? this.tempFile.target.files.item(0) : this.tempFile;
+      file = this.tempFile.target ? this.tempFile.target.files[0] : this.tempFile;
     } else {
       file = base64ToFile(this.imageCropper.crop().base64);
     }

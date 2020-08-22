@@ -30,8 +30,8 @@ export class DropZoneText {
 
         switch (lang) {
             case 'es':
-                this.title = 'Area de carga';
-                this.subtitle = 'Arroje su archivo acá',
+                this.title = 'Área de carga';
+                this.subtitle = 'Arrastre el archivo aquí',
                     this.action = {
                         or: 'ó',
                         click: 'Haga click aquí',

@@ -12,8 +12,6 @@ export class DropZoneDirective {
 
   @HostListener('drop', ['$event'])
   onDrop($event) {
-    console.log($event);
-    
     $event.preventDefault();
     this.dropped.emit($event.dataTransfer.files);
     this.hovered.emit(false);
@@ -29,6 +27,12 @@ export class DropZoneDirective {
   onDragLeave($event) {
     $event.preventDefault();
     this.hovered.emit(false);
+  }
+
+  @HostListener('click', ['$event'])
+  onClick($event) {
+    // $event.preventDefault();
+    document.getElementById('file-input').click();
   }
 
 }
